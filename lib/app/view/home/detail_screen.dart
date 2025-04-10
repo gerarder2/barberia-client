@@ -1,4 +1,5 @@
 import 'package:fix_store/app/data/data_file.dart';
+import 'package:fix_store/app/models/model_barberos.dart';
 import 'package:fix_store/app/models/model_cart.dart';
 import 'package:fix_store/app/models/model_salon.dart';
 import 'package:fix_store/base/resizer/fetch_pixels.dart';
@@ -22,6 +23,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   List<ModelSalon> salonProductLists = DataFile.salonProductList;
   List<ModelPopularService> popularServiceLists = DataFile.popularServiceList;
+  List<BarberosModel> barberos = DataFile.barberList;
   SharedPreferences? selection;
 
   @override
@@ -57,7 +59,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   },
                       title: "Detail",
                       weight: FontWeight.w800,
-                      textColor: Colors.black,
+                      textColor: Colors.white60,
                       fontsize: 24,
                       istext: true,
                       isrightimage: true,
@@ -79,7 +81,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         getPaddingWidget(
                           EdgeInsets.symmetric(
                               horizontal: FetchPixels.getPixelWidth(20)),
-                          getCustomFont("Salon For Men", 24, Colors.black, 1,
+                          getCustomFont("${barberos[index].nombre}", 24,
+                              Colors.white60, 1,
                               fontWeight: FontWeight.w800),
                         ),
                         getVerSpace(FetchPixels.getPixelHeight(17)),
@@ -95,25 +98,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                       width: FetchPixels.getPixelHeight(25),
                                       height: FetchPixels.getPixelHeight(25)),
                                   getHorSpace(FetchPixels.getPixelWidth(10)),
-                                  getCustomFont("4.5", 16, Colors.black, 1,
+                                  getCustomFont("4.5", 16, textColor, 1,
                                       fontWeight: FontWeight.w400),
                                 ],
                               ),
-                              getButton(context, Colors.white, "10K Bookings",
-                                  brownColor, () {}, 14,
-                                  weight: FontWeight.w400,
-                                  boxShadow: [
-                                    const BoxShadow(
-                                        color: Colors.black12,
-                                        blurRadius: 10,
-                                        offset: Offset(0.0, 4.0)),
-                                  ],
-                                  borderRadius: BorderRadius.circular(
-                                      FetchPixels.getPixelHeight(20)),
-                                  buttonHeight: FetchPixels.getPixelHeight(40),
-                                  insetsGeometrypadding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          FetchPixels.getPixelWidth(18)))
                             ],
                           ),
                         ),
@@ -124,15 +112,15 @@ class _DetailScreenState extends State<DetailScreen> {
                           getMultilineCustomFont(
                               "There is a distinction between a beauty salon and a hair salon and although many small treatments, beauty salons provide extended services related to skin health.",
                               16,
-                              Colors.black,
-                              fontWeight: FontWeight.w400,
+                              textColor,
+                              fontWeight: FontWeight.w200,
                               txtHeight: FetchPixels.getPixelHeight(1.3)),
                         ),
                         getVerSpace(FetchPixels.getPixelHeight(29)),
                         getPaddingWidget(
                           EdgeInsets.symmetric(
                               horizontal: FetchPixels.getPixelWidth(20)),
-                          getCustomFont("Packages", 16, Colors.black, 1,
+                          getCustomFont("Packages", 16, textColor, 1,
                               fontWeight: FontWeight.w800),
                         ),
                         getVerSpace(FetchPixels.getPixelHeight(15)),
@@ -157,10 +145,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                   top: FetchPixels.getPixelHeight(16),
                                   bottom: FetchPixels.getPixelHeight(16)),
                               decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: backGroudAux,
                                   boxShadow: const [
                                     BoxShadow(
-                                        color: Colors.black12,
+                                        color: Colors.white12,
                                         blurRadius: 10,
                                         offset: Offset(0.0, 4.0)),
                                   ],
@@ -320,7 +308,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        getCustomFont(modelSalon.name ?? '', 16, Colors.black, 1,
+        getCustomFont(modelSalon.name ?? '', 16, textColor, 1,
             fontWeight: FontWeight.w800),
         getVerSpace(FetchPixels.getPixelHeight(4)),
         getCustomFont(modelSalon.productName ?? "", 14, textColor, 1,
@@ -332,7 +320,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 height: FetchPixels.getPixelHeight(16),
                 width: FetchPixels.getPixelHeight(16)),
             getHorSpace(FetchPixels.getPixelWidth(6)),
-            getCustomFont(modelSalon.rating ?? "", 14, Colors.black, 1,
+            getCustomFont(modelSalon.rating ?? "", 14, textColor, 1,
                 fontWeight: FontWeight.w400)
           ],
         )
@@ -353,8 +341,8 @@ class _DetailScreenState extends State<DetailScreen> {
 
   Hero productImage(int index) {
     return Hero(
-      tag: popularServiceLists[index],
-      child: getAssetImage(popularServiceLists[index].image ?? "",
+      tag: barberos[index],
+      child: getAssetImage(barberos[index].image ?? "",
           FetchPixels.getPixelWidth(374), FetchPixels.getPixelHeight(225),
           boxFit: BoxFit.fill),
     );

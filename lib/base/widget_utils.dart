@@ -13,8 +13,13 @@ Widget getVerSpace(double verSpace) {
   );
 }
 
-Widget getAssetImage(String image, double width, double height,
-    {Color? color, BoxFit boxFit = BoxFit.contain}) {
+Widget getAssetImage(
+  String image,
+  double width,
+  double height, {
+  Color? color,
+  BoxFit boxFit = BoxFit.contain,
+}) {
   return Image.asset(
     Constant.assetImagePath + image,
     color: color,
@@ -776,6 +781,7 @@ Widget gettoolbarMenu(BuildContext context, String image, Function function,
             function();
           },
           child: getSvgImage(image,
+              color: textColor,
               height: FetchPixels.getPixelHeight(24),
               width: FetchPixels.getPixelHeight(24))),
       Expanded(
@@ -793,6 +799,7 @@ Widget gettoolbarMenu(BuildContext context, String image, Function function,
                 rightFunction!();
               },
               child: getSvgImage(rightimage!,
+                  color: textColor,
                   height: FetchPixels.getPixelHeight(24),
                   width: FetchPixels.getPixelHeight(24)))
           : Container(),
