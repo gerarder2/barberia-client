@@ -20,6 +20,13 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
   TextEditingController cityController = TextEditingController();
   TextEditingController countryController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  FocusNode nameNode = FocusNode();
+  FocusNode addressNode = FocusNode();
+  FocusNode pincodeNode = FocusNode();
+  FocusNode landNode = FocusNode();
+  FocusNode cityNode = FocusNode();
+  FocusNode countryNode = FocusNode();
+  FocusNode phoneNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +59,8 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
                         children: [
-                          getDefaultTextFiledWithLabel(
-                              context, "Name", nameController, Colors.grey,
+                          getDefaultTextFiledWithLabel(context, "Name",
+                              nameController, Colors.grey, nameNode,
                               function: () {},
                               height: FetchPixels.getPixelHeight(60),
                               withprefix: true,
@@ -62,7 +69,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                               minLines: true),
                           getVerSpace(FetchPixels.getPixelHeight(20)),
                           getDefaultTextFiledWithLabel(context, "Address",
-                              addressController, Colors.grey,
+                              addressController, Colors.grey, addressNode,
                               function: () {},
                               isEnable: false,
                               withprefix: false,
@@ -71,7 +78,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                               alignmentGeometry: Alignment.topLeft),
                           getVerSpace(FetchPixels.getPixelHeight(20)),
                           getDefaultTextFiledWithLabel(context, "PinCode",
-                              pincodeController, Colors.grey,
+                              pincodeController, Colors.grey, pincodeNode,
                               function: () {},
                               isEnable: false,
                               withprefix: false,
@@ -83,6 +90,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                             "Landmark",
                             landmarkController,
                             Colors.grey,
+                            landNode,
                             function: () {},
                             isEnable: false,
                             withprefix: false,
@@ -92,8 +100,8 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                             suffiximage: "down_arrow.svg",
                           ),
                           getVerSpace(FetchPixels.getPixelHeight(20)),
-                          getDefaultTextFiledWithLabel(
-                              context, "City", cityController, Colors.grey,
+                          getDefaultTextFiledWithLabel(context, "City",
+                              cityController, Colors.grey, cityNode,
                               function: () {},
                               isEnable: false,
                               withprefix: false,
@@ -103,7 +111,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                               suffiximage: "down_arrow.svg"),
                           getVerSpace(FetchPixels.getPixelHeight(20)),
                           getDefaultTextFiledWithLabel(context, "Country",
-                              countryController, Colors.grey,
+                              countryController, Colors.grey, countryNode,
                               function: () {},
                               isEnable: false,
                               withprefix: false,
@@ -112,8 +120,8 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                               withSufix: true,
                               suffiximage: "down_arrow.svg"),
                           getVerSpace(FetchPixels.getPixelHeight(20)),
-                          getDefaultTextFiledWithLabel(
-                              context, "Phone", phoneController, Colors.grey,
+                          getDefaultTextFiledWithLabel(context, "Phone",
+                              phoneController, Colors.grey, phoneNode,
                               function: () {},
                               height: FetchPixels.getPixelHeight(60),
                               withprefix: true,

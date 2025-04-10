@@ -16,6 +16,8 @@ class CardDialog extends StatefulWidget {
 class _CardDialogState extends State<CardDialog> {
   TextEditingController nameController = TextEditingController();
   TextEditingController cardController = TextEditingController();
+  FocusNode nameNode = FocusNode();
+  FocusNode cardNode = FocusNode();
   var dateController = MaskedTextController(mask: '00/00');
   TextEditingController cvvController = TextEditingController();
   bool agree = false;
@@ -47,8 +49,8 @@ class _CardDialogState extends State<CardDialog> {
                   ],
                 ),
                 getVerSpace(FetchPixels.getPixelHeight(20)),
-                getDefaultTextFiledWithLabel(
-                    context, "Name On Card", nameController, Colors.grey,
+                getDefaultTextFiledWithLabel(context, "Name On Card",
+                    nameController, Colors.grey, nameNode,
                     function: () {},
                     height: FetchPixels.getPixelHeight(60),
                     isEnable: false,

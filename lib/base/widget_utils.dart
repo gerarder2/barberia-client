@@ -236,8 +236,12 @@ Widget getButtonWithIcon(BuildContext context, Color bgColor, String text,
   );
 }
 
-Widget getDefaultTextFiledWithLabel(BuildContext context, String s,
-    TextEditingController textEditingController, Color fontColor,
+Widget getDefaultTextFiledWithLabel(
+    BuildContext context,
+    String s,
+    TextEditingController textEditingController,
+    Color fontColor,
+    FocusNode myFocusNode,
     {bool withprefix = false,
     bool withSufix = false,
     bool minLines = false,
@@ -252,8 +256,6 @@ Widget getDefaultTextFiledWithLabel(BuildContext context, String s,
     required Function function,
     Function? imagefunction,
     AlignmentGeometry alignmentGeometry = Alignment.centerLeft}) {
-  FocusNode myFocusNode = FocusNode();
-
   return StatefulBuilder(
     builder: (context, setState) {
       final mqData = MediaQuery.of(context);
@@ -314,9 +316,11 @@ Widget getDefaultTextFiledWithLabel(BuildContext context, String s,
                         showCursor: true,
                         onTap: () {
                           // function();
-                          myFocusNode.requestFocus();
                         },
-                        onTapOutside: (event) => myFocusNode.unfocus(),
+                        onSubmitted: (value) => myFocusNode.unfocus(),
+                        onTapOutside: (event) {
+                          FocusScope.of(context).unfocus();
+                        },
                         style: const TextStyle(
                             color: Color.fromARGB(253, 181, 179, 179),
                             fontWeight: FontWeight.w600,

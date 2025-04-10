@@ -1,4 +1,5 @@
 import 'package:fix_store/app/routes/app_routes.dart';
+import 'package:fix_store/app/view/login/register_screen.dart';
 import 'package:fix_store/base/resizer/fetch_pixels.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +23,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  FocusNode nameNode = FocusNode();
+  FocusNode emailNode = FocusNode();
+  FocusNode phoneNode = FocusNode();
   SharedPreferences? selection;
   bool agree = false;
 
@@ -83,6 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     "Name",
                     nameController,
                     Colors.grey,
+                    nameNode,
                     function: () {},
                     height: FetchPixels.getPixelHeight(60),
                     isEnable: false,
@@ -95,6 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     "Email",
                     emailController,
                     Colors.grey,
+                    emailNode,
                     function: () {},
                     height: FetchPixels.getPixelHeight(60),
                     isEnable: false,
@@ -119,8 +125,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           image: selection!.getString("country") ??
                               "image_albania.jpg")),
                   getVerSpace(FetchPixels.getPixelHeight(20)),
-                  getDefaultTextFiledWithLabel(
-                      context, "Password", passwordController, Colors.grey,
+                  getDefaultTextFiledWithLabel(context, "Password",
+                      passwordController, Colors.grey, passNode,
                       function: () {},
                       height: FetchPixels.getPixelHeight(60),
                       isEnable: false,

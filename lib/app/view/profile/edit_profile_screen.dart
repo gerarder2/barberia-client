@@ -16,6 +16,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  FocusNode nameNode = FocusNode();
+  FocusNode emailNode = FocusNode();
+  FocusNode phoneNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   profilePictureEdit(context),
                   getVerSpace(FetchPixels.getPixelHeight(40)),
                   getDefaultTextFiledWithLabel(
-                      context, "Name", nameController, Colors.grey,
+                      context, "Name", nameController, Colors.grey, nameNode,
                       function: () {},
                       height: FetchPixels.getPixelHeight(60),
                       isEnable: false,
@@ -58,7 +61,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       imageHeight: FetchPixels.getPixelHeight(24)),
                   getVerSpace(FetchPixels.getPixelHeight(20)),
                   getDefaultTextFiledWithLabel(
-                      context, "Email", emailController, Colors.grey,
+                      context, "Email", emailController, Colors.grey, emailNode,
                       function: () {},
                       height: FetchPixels.getPixelHeight(60),
                       isEnable: false,
@@ -68,7 +71,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       imageHeight: FetchPixels.getPixelHeight(24)),
                   getVerSpace(FetchPixels.getPixelHeight(20)),
                   getDefaultTextFiledWithLabel(
-                      context, "Phone", phoneController, Colors.grey,
+                      context, "Phone", phoneController, Colors.grey, phoneNode,
                       function: () {},
                       height: FetchPixels.getPixelHeight(60),
                       isEnable: false,

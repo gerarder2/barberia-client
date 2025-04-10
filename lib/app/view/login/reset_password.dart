@@ -21,6 +21,9 @@ class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController oldController = TextEditingController();
   TextEditingController newController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
+  FocusNode oldNode = FocusNode();
+  FocusNode newNode = FocusNode();
+  FocusNode confNode = FocusNode();
 
   bool oldpass = true;
   bool newpass = true;
@@ -62,8 +65,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                           textAlign: TextAlign.center,
                           txtHeight: FetchPixels.getPixelHeight(1.3))),
                   getVerSpace(FetchPixels.getPixelHeight(36)),
-                  getDefaultTextFiledWithLabel(
-                      context, "Old Password", oldController, textColor,
+                  getDefaultTextFiledWithLabel(context, "Old Password",
+                      oldController, textColor, oldNode,
                       function: () {},
                       height: FetchPixels.getPixelHeight(60),
                       isEnable: false,
@@ -77,8 +80,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                     });
                   }),
                   getVerSpace(FetchPixels.getPixelHeight(14)),
-                  getDefaultTextFiledWithLabel(
-                      context, "New Password", newController, textColor,
+                  getDefaultTextFiledWithLabel(context, "New Password",
+                      newController, textColor, newNode,
                       function: () {},
                       height: FetchPixels.getPixelHeight(60),
                       isEnable: false,
@@ -92,8 +95,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                     });
                   }),
                   getVerSpace(FetchPixels.getPixelHeight(14)),
-                  getDefaultTextFiledWithLabel(
-                      context, "Confirm Password", confirmController, textColor,
+                  getDefaultTextFiledWithLabel(context, "Confirm Password",
+                      confirmController, textColor, confNode,
                       function: () {},
                       height: FetchPixels.getPixelHeight(60),
                       isEnable: false,

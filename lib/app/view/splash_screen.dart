@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: Container(
-            color: backGroundColor,
+            color: backGroudAux,
             child: Center(
                 child: getAssetImage(
                     "logotipo.png",
