@@ -37,7 +37,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
     return WillPopScope(
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: backGroundColor,
+          backgroundColor: Colors.black87,
           body: SafeArea(
             child: Container(
               padding: EdgeInsets.symmetric(
@@ -53,7 +53,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                       title: "My Address",
                       weight: FontWeight.w800,
                       fontsize: 24,
-                      textColor: Colors.black),
+                      textColor: whiteColor),
                   if (addressList.isEmpty)
                     Expanded(
                         child: Column(
@@ -68,7 +68,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                           ),
                         ),
                         getVerSpace(FetchPixels.getPixelHeight(40)),
-                        getCustomFont("No Address Yet!", 20, Colors.black, 1,
+                        getCustomFont("No Address Yet!", 20, whiteColor, 1,
                             fontWeight: FontWeight.w800),
                         getVerSpace(FetchPixels.getPixelHeight(10)),
                         getCustomFont("Add your address and lets get started.",
@@ -100,7 +100,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: getCustomFont(
-                                    "Your addresses", 16, Colors.black, 1,
+                                    "Your addresses", 16, whiteColor, 1,
                                     fontWeight: FontWeight.w400),
                               ),
                               getVerSpace(FetchPixels.getPixelHeight(20)),
@@ -121,7 +121,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                       left: FetchPixels.getPixelWidth(16),
                                     ),
                                     decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: backGroudAux,
                                         boxShadow: const [
                                           BoxShadow(
                                               color: Colors.black12,
@@ -137,6 +137,9 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Container(
+                                          padding: EdgeInsets.only(
+                                              top: FetchPixels.getPixelHeight(
+                                                  20)),
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
@@ -144,7 +147,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                               getCustomFont(
                                                   modelAddress.name ?? "",
                                                   16,
-                                                  Colors.black,
+                                                  whiteColor,
                                                   1,
                                                   fontWeight: FontWeight.w800),
                                               getVerSpace(
@@ -157,7 +160,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                                 child: getMultilineCustomFont(
                                                     modelAddress.address ?? "",
                                                     16,
-                                                    Colors.black,
+                                                    whiteColor,
                                                     fontWeight: FontWeight.w400,
                                                     txtHeight: FetchPixels
                                                         .getPixelHeight(1.3)),
@@ -168,14 +171,11 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                               getCustomFont(
                                                   modelAddress.phone ?? "",
                                                   16,
-                                                  Colors.black,
+                                                  whiteColor,
                                                   1,
                                                   fontWeight: FontWeight.w400),
                                             ],
                                           ),
-                                          padding: EdgeInsets.only(
-                                              top: FetchPixels.getPixelHeight(
-                                                  20)),
                                         ),
                                         PopupMenuButton<int>(
                                           onSelected: (value) {
@@ -198,6 +198,7 @@ class _MyAddressScreenState extends State<MyAddressScreen> {
                                               top: FetchPixels.getPixelHeight(
                                                   15)),
                                           icon: getSvgImage("more_vert.svg",
+                                              color: whiteColor,
                                               width:
                                                   FetchPixels.getPixelHeight(2),
                                               height:

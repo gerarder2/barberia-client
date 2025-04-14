@@ -1,8 +1,11 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 Color backGroundColor = "#111111".toColor();
 Color backGroudAux = "#1e1e1e".toColor();
 Color brownColor = "#a6875f".toColor();
+Color whiteColor = Colors.white60;
 Color intro1Color = "#FFC8CF".toColor();
 Color intro2Color = "#E5ECFF".toColor();
 Color intro3Color = "#F7FBCD".toColor();

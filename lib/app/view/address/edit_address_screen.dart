@@ -50,7 +50,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                       title: "Edit My Address",
                       weight: FontWeight.w800,
                       fontsize: 24,
-                      textColor: Colors.black),
+                      textColor: whiteColor),
                   getVerSpace(FetchPixels.getPixelHeight(30)),
                   Expanded(
                       flex: 1,

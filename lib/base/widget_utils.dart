@@ -217,7 +217,9 @@ Widget getButtonWithIcon(BuildContext context, Color bgColor, String text,
           Row(
             children: [
               getHorSpace(FetchPixels.getPixelWidth(18)),
-              (prefixIcon) ? getSvgImage(prefixImage!) : getHorSpace(0),
+              (prefixIcon)
+                  ? getSvgImage(prefixImage!, color: Colors.white60)
+                  : getHorSpace(0),
               (prefixIcon)
                   ? getHorSpace(FetchPixels.getPixelWidth(12))
                   : getHorSpace(0),
@@ -229,7 +231,9 @@ Widget getButtonWithIcon(BuildContext context, Color bgColor, String text,
           ),
           Row(
             children: [
-              (sufixIcon) ? getSvgImage(suffixImage!) : getHorSpace(0),
+              (sufixIcon)
+                  ? getSvgImage(suffixImage!, color: Colors.white60)
+                  : getHorSpace(0),
               (sufixIcon)
                   ? getHorSpace(FetchPixels.getPixelWidth(18))
                   : getHorSpace(0),
@@ -781,7 +785,7 @@ Widget gettoolbarMenu(BuildContext context, String image, Function function,
             function();
           },
           child: getSvgImage(image,
-              color: textColor,
+              color: Colors.white60,
               height: FetchPixels.getPixelHeight(24),
               width: FetchPixels.getPixelHeight(24))),
       Expanded(
@@ -835,6 +839,7 @@ Widget withoutleftIconToolbar(BuildContext context,
                 rightFunction!();
               },
               child: getSvgImage(rightimage!,
+                  color: Colors.white60,
                   height: FetchPixels.getPixelHeight(24),
                   width: FetchPixels.getPixelHeight(24)))
           : Container(),

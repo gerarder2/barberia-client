@@ -46,7 +46,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       title: "Edit Profile",
                       weight: FontWeight.w800,
                       fontsize: 24,
-                      textColor: Colors.black),
+                      textColor: whiteColor),
                   getVerSpace(FetchPixels.getPixelHeight(30)),
                   profilePictureEdit(context),
                   getVerSpace(FetchPixels.getPixelHeight(40)),

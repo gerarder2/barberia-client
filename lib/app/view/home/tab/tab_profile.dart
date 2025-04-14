@@ -27,7 +27,7 @@ class _TabProfileState extends State<TabProfile> {
               isrightimage: true,
               title: "Profile",
               weight: FontWeight.w800,
-              textColor: Colors.black,
+              textColor: whiteColor,
               fontsize: 24,
               istext: true,
               rightimage: "notification.svg"),
@@ -58,7 +58,7 @@ class _TabProfileState extends State<TabProfile> {
   }
 
   Widget logoutButton(BuildContext context) {
-    return getButton(context, brownColor, "Logout", Colors.white, () {
+    return getButton(context, brownColor, "Logout", whiteColor, () {
       // Constant.closeApp();
       Constant.sendToNext(context, Routes.loginRoute);
       PrefData.setLogOut();
@@ -69,8 +69,7 @@ class _TabProfileState extends State<TabProfile> {
   }
 
   Widget settingButton(BuildContext context) {
-    return getButtonWithIcon(context, Colors.white, "Settings", Colors.black,
-        () {
+    return getButtonWithIcon(context, backGroudAux, "Settings", whiteColor, () {
       Constant.sendToNext(context, Routes.settingRoute);
     }, 16,
         weight: FontWeight.w400,
@@ -87,7 +86,7 @@ class _TabProfileState extends State<TabProfile> {
   }
 
   Widget myAddressButton(BuildContext context) {
-    return getButtonWithIcon(context, Colors.white, "My Address", Colors.black,
+    return getButtonWithIcon(context, backGroudAux, "My Address", whiteColor,
         () {
       Constant.sendToNext(context, Routes.myAddressRoute);
     }, 16,
@@ -105,8 +104,7 @@ class _TabProfileState extends State<TabProfile> {
   }
 
   Widget myCardButton(BuildContext context) {
-    return getButtonWithIcon(context, Colors.white, "My Cards", Colors.black,
-        () {
+    return getButtonWithIcon(context, backGroudAux, "My Cards", whiteColor, () {
       Constant.sendToNext(context, Routes.cardRoute);
     }, 16,
         weight: FontWeight.w400,
@@ -123,7 +121,7 @@ class _TabProfileState extends State<TabProfile> {
   }
 
   Widget myProfileButton(BuildContext context) {
-    return getButtonWithIcon(context, Colors.white, "My Profile", Colors.black,
+    return getButtonWithIcon(context, backGroudAux, "My Profile", whiteColor,
         () {
       Constant.sendToNext(context, Routes.profileRoute);
     }, 16,
