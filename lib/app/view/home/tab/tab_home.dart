@@ -4,6 +4,7 @@ import 'package:fix_store/app/models/model_category.dart';
 
 import 'package:fix_store/app/models/model_popular_service.dart';
 import 'package:fix_store/app/routes/app_routes.dart';
+import 'package:fix_store/app/view/home/detail_screen.dart';
 import 'package:fix_store/app/view/home/widgets/main_appbar.dart';
 import 'package:fix_store/base/color_data.dart';
 import 'package:fix_store/base/constant.dart';
@@ -200,7 +201,8 @@ class _TabHomeState extends State<TabHome> {
                       return GestureDetector(
                         onTap: () {
                           selection?.setInt("index", index);
-                          Constant.sendToNext(context, Routes.detailRoute);
+                          Constant.sendToNext(context, Routes.detailRoute,
+                              arguments: ScreenArguments(index, barber));
                         },
                         child: Container(
                           margin: EdgeInsets.only(
@@ -215,10 +217,13 @@ class _TabHomeState extends State<TabHome> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             spacing: FetchPixels.getPixelWidth(15),
                             children: [
-                              CircleAvatar(
-                                radius: FetchPixels.getPixelWidth(35),
-                                backgroundImage: AssetImage(
-                                    "${Constant.assetImagePath}${barber.image}"),
+                              Hero(
+                                tag: index,
+                                child: CircleAvatar(
+                                  radius: FetchPixels.getPixelWidth(35),
+                                  backgroundImage: AssetImage(
+                                      "${Constant.assetImagePath}${barber.image}"),
+                                ),
                               ),
                               SizedBox(
                                 width: FetchPixels.getPixelWidth(75),

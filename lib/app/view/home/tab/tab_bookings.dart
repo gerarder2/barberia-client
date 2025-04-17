@@ -47,7 +47,7 @@ class _TabBookingsState extends State<TabBookings>
               isrightimage: true,
               title: "Bookings",
               weight: FontWeight.w800,
-              textColor: Colors.black,
+              textColor: whiteColor,
               fontsize: 24,
               istext: true,
               rightimage: "notification.svg"),
@@ -105,8 +105,8 @@ class _TabBookingsState extends State<TabBookings>
                 child: Column(
                   children: [
                     getCustomFont(
-                        "All", 16, position == 0 ? brownColor : Colors.black, 1,
-                        fontWeight: FontWeight.w400,
+                        "All", 12, position == 0 ? brownColor : whiteColor, 1,
+                        fontWeight: FontWeight.w600,
                         overflow: TextOverflow.visible),
                     getVerSpace(FetchPixels.getPixelHeight(7)),
                     Container(
@@ -122,9 +122,9 @@ class _TabBookingsState extends State<TabBookings>
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    getCustomFont("Active", 16,
-                        position == 1 ? brownColor : Colors.black, 1,
-                        fontWeight: FontWeight.w400,
+                    getCustomFont("Active", 12,
+                        position == 1 ? brownColor : whiteColor, 1,
+                        fontWeight: FontWeight.w600,
                         overflow: TextOverflow.visible),
                     getVerSpace(FetchPixels.getPixelHeight(7)),
                     Container(
@@ -140,9 +140,9 @@ class _TabBookingsState extends State<TabBookings>
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    getCustomFont("Completed", 16,
-                        position == 2 ? brownColor : Colors.black, 1,
-                        fontWeight: FontWeight.w400,
+                    getCustomFont("Completed", 12,
+                        position == 2 ? brownColor : whiteColor, 1,
+                        fontWeight: FontWeight.w600,
                         overflow: TextOverflow.visible),
                     getVerSpace(FetchPixels.getPixelHeight(7)),
                     Container(
@@ -158,9 +158,9 @@ class _TabBookingsState extends State<TabBookings>
                 alignment: Alignment.center,
                 child: Column(
                   children: [
-                    getCustomFont("Cancelled", 16,
-                        position == 3 ? brownColor : Colors.black, 1,
-                        fontWeight: FontWeight.w400,
+                    getCustomFont("Cancelled", 12,
+                        position == 3 ? brownColor : whiteColor, 1,
+                        fontWeight: FontWeight.w600,
                         overflow: TextOverflow.visible),
                     getVerSpace(FetchPixels.getPixelHeight(7)),
                     Container(

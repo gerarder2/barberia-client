@@ -2,6 +2,7 @@ import 'package:fix_store/app/data/data_file.dart';
 import 'package:fix_store/app/models/model_barberos.dart';
 import 'package:fix_store/app/models/model_cart.dart';
 import 'package:fix_store/app/models/model_salon.dart';
+import 'package:fix_store/app/routes/app_pages.dart';
 import 'package:fix_store/base/resizer/fetch_pixels.dart';
 import 'package:fix_store/base/widget_utils.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ import '../../models/model_popular_service.dart';
 import '../dialog/color_dialog.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({Key? key}) : super(key: key);
+  const DetailScreen({Key? key, int? index}) : super(key: key);
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -23,7 +24,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   List<ModelSalon> salonProductLists = DataFile.salonProductList;
   List<ModelPopularService> popularServiceLists = DataFile.popularServiceList;
-  List<BarberosModel> barberos = DataFile.barberList;
+
   SharedPreferences? selection;
 
   @override
@@ -41,7 +42,7 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int index = selection?.getInt("index") ?? 0;
+    final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
     FetchPixels(context);
     return WillPopScope(
         child: Scaffold(
@@ -76,13 +77,13 @@ class _DetailScreenState extends State<DetailScreen> {
                         getPaddingWidget(
                             EdgeInsets.symmetric(
                                 horizontal: FetchPixels.getPixelWidth(20)),
-                            productImage(index)),
+                            productImage(args.barbero, args.index)),
                         getVerSpace(FetchPixels.getPixelHeight(20)),
                         getPaddingWidget(
                           EdgeInsets.symmetric(
                               horizontal: FetchPixels.getPixelWidth(20)),
-                          getCustomFont("${barberos[index].nombre}", 24,
-                              Colors.white60, 1,
+                          getCustomFont(
+                              "${args.barbero.nombre}", 24, Colors.white60, 1,
                               fontWeight: FontWeight.w800),
                         ),
                         getVerSpace(FetchPixels.getPixelHeight(17)),
@@ -339,12 +340,19 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  Hero productImage(int index) {
+  Hero productImage(BarberosModel barbero, int index) {
     return Hero(
-      tag: barberos[index],
-      child: getAssetImage(barberos[index].image ?? "",
-          FetchPixels.getPixelWidth(374), FetchPixels.getPixelHeight(225),
+      tag: index,
+      child: getAssetImage(barbero.image ?? "", FetchPixels.getPixelWidth(374),
+          FetchPixels.getPixelHeight(225),
           boxFit: BoxFit.fill),
     );
   }
+}
+
+class ScreenArguments {
+  final int index;
+  final BarberosModel barbero;
+
+  ScreenArguments(this.index, this.barbero);
 }
