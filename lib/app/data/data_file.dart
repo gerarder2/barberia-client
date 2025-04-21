@@ -80,11 +80,13 @@ class DataFile {
   ];
 
   static List<ModelSalon> salonProductList = [
-    ModelSalon("hair1.png", "Haircut", "Men’s Haircut", "4.5", 10.00, 0),
-    ModelSalon("shaving.png", "Shaving", "Men’s Beard Shave", "4.4", 8.00, 0),
-    ModelSalon("facecare.png", "Face Care", "Men’s Face Care", "4.4", 12.00, 0),
+    ModelSalon(1, "hair1.png", "Haircut", "Men’s Haircut", "4.5", 10.00, 0),
     ModelSalon(
-        "haircolor.png", "Hair Color", "Men’s Hair Color", "4.4", 8.00, 0),
+        2, "shaving.png", "Shaving", "Men’s Beard Shave", "4.4", 8.00, 0),
+    ModelSalon(
+        3, "facecare.png", "Face Care", "Men’s Face Care", "4.4", 12.00, 0),
+    ModelSalon(
+        4, "haircolor.png", "Hair Color", "Men’s Hair Color", "4.4", 8.00, 0),
   ];
 
   static List<ModelColor> hairColorList = [
@@ -183,21 +185,61 @@ class DataFile {
   ];
 
   static List<BarberosModel> barberList = [
-    BarberosModel(1, "Juan Perez", "barberPerfil.jpg", "4.3",
+    BarberosModel(
+        1,
+        salonProductList.map((servicio) => servicio.copy()).toList(),
+        "Juan Perez",
+        "barberPerfil.jpg",
+        "4.3",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
-    BarberosModel(2, "Gerardo Zazueta", "barberPerfil2.jpg", "4.8",
+    BarberosModel(
+        2,
+        salonProductList.map((servicio) => servicio.copy()).toList(),
+        "Gerardo Zazueta",
+        "barberPerfil2.jpg",
+        "4.8",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
-    BarberosModel(3, "David Aviles", "barberPerfil.jpg", "5",
+    BarberosModel(
+        3,
+        salonProductList.map((servicio) => servicio.copy()).toList(),
+        "David Aviles",
+        "barberPerfil.jpg",
+        "5",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
-    BarberosModel(4, "Desire Lopez", "barberPerfil2.jpg", "4.0",
+    BarberosModel(
+        4,
+        salonProductList.map((servicio) => servicio.copy()).toList(),
+        "Desire Lopez",
+        "barberPerfil2.jpg",
+        "4.0",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
-    BarberosModel(5, "Cesar Perez", "barberPerfil.jpg", "4.2",
+    BarberosModel(
+        5,
+        salonProductList.map((servicio) => servicio.copy()).toList(),
+        "Cesar Perez",
+        "barberPerfil.jpg",
+        "4.2",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
-    BarberosModel(6, "Miguel Monarrez", "barberPerfil2.jpg", "4.7",
+    BarberosModel(
+        6,
+        salonProductList.map((servicio) => servicio.copy()).toList(),
+        "Miguel Monarrez",
+        "barberPerfil2.jpg",
+        "4.7",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
-    BarberosModel(7, "Pedrito Sola", "barberPerfil.jpg", "4.6",
+    BarberosModel(
+        7,
+        salonProductList.map((servicio) => servicio.copy()).toList(),
+        "Pedrito Sola",
+        "barberPerfil.jpg",
+        "4.6",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
-    BarberosModel(8, "Pepe Garza", "barberPerfil2.jpg", "4.6",
+    BarberosModel(
+        8,
+        salonProductList.map((servicio) => servicio.copy()).toList(),
+        "Pepe Garza",
+        "barberPerfil2.jpg",
+        "4.6",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
   ];
 }

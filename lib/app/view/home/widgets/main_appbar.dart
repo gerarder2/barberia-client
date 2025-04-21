@@ -1,5 +1,10 @@
+import 'package:fix_store/app/provider/cart_provider.dart';
+import 'package:fix_store/app/routes/app_routes.dart';
 import 'package:fix_store/base/color_data.dart';
+import 'package:fix_store/base/constant.dart';
+import 'package:fix_store/base/resizer/fetch_pixels.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainAppbar extends StatefulWidget {
   const MainAppbar({super.key});
@@ -17,6 +22,7 @@ class _MainAppbarState extends State<MainAppbar> {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
     return AppBar(
       toolbarHeight: 80,
       automaticallyImplyLeading: false,
@@ -50,42 +56,89 @@ class _MainAppbarState extends State<MainAppbar> {
       ),
       actions: [
         // Icono de notificación
-        CircleAvatar(
-          backgroundColor: backGroundColor,
-          radius: 25,
-          child: IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              // Muestra las notificaciones al presionar el icono
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: Text('Notificaciones'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: notifications
-                            .map((notification) => Text(notification))
-                            .toList(),
+        Padding(
+            padding: EdgeInsets.only(right: FetchPixels.getPixelWidth(10)),
+            child: Stack(
+              children: [
+                CircleAvatar(
+                  radius: 25,
+                  backgroundColor: backGroundColor,
+                  child: IconButton(
+                    icon: Icon(Icons.shopping_cart),
+                    color: whiteColor,
+                    onPressed: () {
+                      Constant.sendToNext(context, Routes.cartRoute);
+                    },
+                  ),
+                ),
+                if (cart.itemCount > 0)
+                  Positioned(
+                    right: 4,
+                    top: 4,
+                    child: GestureDetector(
+                      onTap: () =>
+                          Constant.sendToNext(context, Routes.cartRoute),
+                      child: Container(
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        constraints:
+                            BoxConstraints(minWidth: 20, minHeight: 20),
+                        child: Text(
+                          '${cart.itemCount}',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text('Cerrar'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
+                  ),
+              ],
+            )),
+        Padding(
+          padding: EdgeInsets.only(right: FetchPixels.getPixelWidth(10)),
+          child: CircleAvatar(
+            backgroundColor: backGroundColor,
+            radius: 25,
+            child: IconButton(
+              icon: Icon(
+                Icons.notifications,
+                color: whiteColor,
+              ),
+              onPressed: () {
+                // Muestra las notificaciones al presionar el icono
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Notificaciones'),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: notifications
+                              .map((notification) => Text(notification))
+                              .toList(),
+                        ),
                       ),
-                    ],
-                  );
-                },
-              );
-            },
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Cerrar'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
           ),
-        )
+        ),
       ],
     );
   }

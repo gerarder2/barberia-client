@@ -2,10 +2,13 @@ import 'package:fix_store/app/data/data_file.dart';
 import 'package:fix_store/app/models/model_barberos.dart';
 import 'package:fix_store/app/models/model_cart.dart';
 import 'package:fix_store/app/models/model_salon.dart';
+import 'package:fix_store/app/provider/cart_provider.dart';
 import 'package:fix_store/app/routes/app_pages.dart';
+import 'package:fix_store/app/routes/app_routes.dart';
 import 'package:fix_store/base/resizer/fetch_pixels.dart';
 import 'package:fix_store/base/widget_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,6 +46,8 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+
+    final cart = Provider.of<CartProvider>(context);
     FetchPixels(context);
     return WillPopScope(
         child: Scaffold(
@@ -131,9 +136,10 @@ class _DetailScreenState extends State<DetailScreen> {
                           physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,
-                          itemCount: salonProductLists.length,
+                          itemCount: args.barbero.servicios!.length,
                           itemBuilder: (context, index) {
-                            ModelSalon modelSalon = salonProductLists[index];
+                            ModelSalon modelSalon =
+                                args.barbero.servicios!.elementAt(index);
                             return Container(
                               margin: EdgeInsets.only(
                                   bottom: FetchPixels.getPixelHeight(20),
@@ -165,7 +171,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                       child: packageDescription(modelSalon),
                                     ),
                                   ),
-                                  addButton(modelSalon, context, index)
+                                  addButton(args.barbero, context, index)
                                 ],
                               ),
                             );
@@ -210,42 +216,24 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Widget viewCartButton(BuildContext context) {
-    return getButton(context, brownColor, "View Cart", Colors.white, () {
-      showModalBottomSheet(
-          backgroundColor: backGroundColor,
-          isDismissible: false,
-          isScrollControlled: true,
-          context: context,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(FetchPixels.getPixelHeight(40)),
-            ),
-          ),
-          builder: (context) {
-            return const ColorDialog();
-          });
+    return getButton(context, brownColor, "Reservar", Colors.white, () {
+      Constant.sendToNext(context, Routes.cartRoute);
     }, 18,
         weight: FontWeight.w600,
         buttonHeight: FetchPixels.getPixelHeight(60),
         borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(14)));
   }
 
-  Column addButton(ModelSalon modelSalon, BuildContext context, int index) {
+  Column addButton(
+      BarberosModel barberoModel, BuildContext context, int index) {
+    final cart = Provider.of<CartProvider>(context);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        if (modelSalon.quantity == 0)
+        if (barberoModel.servicios!.elementAt(index).quantity == 0)
           getButton(context, Colors.transparent, "Add", brownColor, () {
-            modelSalon.quantity = (modelSalon.quantity! + 1);
-            total = total + (modelSalon.price! * 1);
-            DataFile.cartList[index.toString()] = ModelCart(
-                modelSalon.image,
-                modelSalon.name,
-                modelSalon.productName,
-                modelSalon.rating,
-                modelSalon.price,
-                modelSalon.quantity);
-
-            setState(() {});
+            cart.addItem(
+                barberoModel, barberoModel.servicios!.elementAt(index));
           }, 14,
               weight: FontWeight.w600,
               insetsGeometrypadding: EdgeInsets.symmetric(
@@ -264,17 +252,16 @@ class _DetailScreenState extends State<DetailScreen> {
                     width: FetchPixels.getPixelHeight(30),
                     height: FetchPixels.getPixelHeight(30)),
                 onTap: () {
-                  modelSalon.quantity = (modelSalon.quantity! + 1);
-                  total = total + (modelSalon.price! * 1);
-
-                  DataFile.cartList[index.toString()]!.quantity =
-                      modelSalon.quantity;
-
-                  setState(() {});
+                  cart.addItem(
+                      barberoModel, barberoModel.servicios!.elementAt(index));
                 },
               ),
               getHorSpace(FetchPixels.getPixelWidth(10)),
-              getCustomFont(modelSalon.quantity.toString(), 14, Colors.black, 1,
+              getCustomFont(
+                  barberoModel.servicios!.elementAt(index).quantity.toString(),
+                  14,
+                  whiteColor,
+                  1,
                   fontWeight: FontWeight.w400),
               getHorSpace(FetchPixels.getPixelWidth(10)),
               GestureDetector(
@@ -282,26 +269,17 @@ class _DetailScreenState extends State<DetailScreen> {
                     width: FetchPixels.getPixelHeight(30),
                     height: FetchPixels.getPixelHeight(30)),
                 onTap: () {
-                  modelSalon.quantity = (modelSalon.quantity! - 1);
-                  total = total - (modelSalon.price! * 1);
-
-                  if (modelSalon.quantity! > 0) {
-                    DataFile.cartList[index.toString()]!.quantity =
-                        modelSalon.quantity;
-                  } else {
-                    DataFile.cartList.remove(index.toString());
-                  }
-
-                  setState(() {});
+                  cart.decreaseItem(
+                      barberoModel, barberoModel.servicios!.elementAt(index));
                 },
               ),
             ],
           ),
         getVerSpace(FetchPixels.getPixelHeight(40)),
-        getCustomFont("\$${modelSalon.price}", 16, brownColor, 1,
+        getCustomFont("\$${barberoModel.servicios!.elementAt(index).price}", 16,
+            brownColor, 1,
             fontWeight: FontWeight.w800)
       ],
-      crossAxisAlignment: CrossAxisAlignment.end,
     );
   }
 

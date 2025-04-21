@@ -1,4 +1,5 @@
-class ModelSalon{
+class ModelSalon {
+  int? id;
   String? image;
   String? name;
   String? productName;
@@ -6,6 +7,18 @@ class ModelSalon{
   double? price;
   int? quantity;
 
-  ModelSalon(this.image, this.name, this.productName, this.rating, this.price,
-      this.quantity);
+  ModelSalon(this.id, this.image, this.name, this.productName, this.rating,
+      this.price, this.quantity);
+
+  ModelSalon copy() {
+    return ModelSalon(
+      id,
+      image,
+      name,
+      productName,
+      rating,
+      price,
+      0, // quantity reseteado para evitar compartir estado
+    );
+  }
 }

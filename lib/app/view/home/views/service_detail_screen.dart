@@ -102,7 +102,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
               ),
             ),
             SizedBox(
-              height: FetchPixels.getPixelHeight(75),
+              height: FetchPixels.getPixelHeight(85),
               width: FetchPixels.getPixelWidth(350),
               child: Padding(
                   padding: const EdgeInsets.all(16.0),

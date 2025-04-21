@@ -1,214 +1,124 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:fix_store/app/routes/app_routes.dart';
-import 'package:fix_store/base/resizer/fetch_pixels.dart';
+import 'package:fix_store/base/constant.dart';
 import 'package:flutter/material.dart';
 
-import '../../../base/color_data.dart';
-import '../../../base/constant.dart';
-import '../../../base/widget_utils.dart';
-import 'online_card_screen.dart';
-
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({Key? key}) : super(key: key);
-
   @override
-  State<PaymentScreen> createState() => _PaymentScreenState();
+  _PaymentScreenState createState() => _PaymentScreenState();
 }
 
-class _PaymentScreenState extends State<PaymentScreen>
-    with SingleTickerProviderStateMixin {
-  final PageController _controller = PageController(
-    initialPage: 0,
-  );
+class _PaymentScreenState extends State<PaymentScreen> {
+  String _selectedPaymentMethod = "";
 
-  late TabController tabController;
-  var position = 0;
-
-  @override
-  void initState() {
-    tabController = TabController(length: 2, vsync: this);
-    setState(() {});
-    super.initState();
+  void _selectPaymentMethod(String method) {
+    setState(() {
+      _selectedPaymentMethod = method;
+    });
+    if (method == "Tarjeta") {
+      // Navegar a la pantalla de tarjetas cuando se selecciona "Tarjeta"
+      Constant.sendToNext(context, Routes.mycardsRoute);
+    }
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  void _confirmPayment() {
+    if (_selectedPaymentMethod.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Por favor selecciona un método de pago")),
+      );
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Pago confirmado con $_selectedPaymentMethod")),
+    );
+  }
+
+  Widget _buildPaymentOption({
+    required String title,
+    required IconData icon,
+    required String method,
+  }) {
+    final isSelected = _selectedPaymentMethod == method;
+
+    return InkWell(
+      onTap: () => _selectPaymentMethod(method),
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        margin: EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.brown[100] : Colors.grey[200],
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected ? Colors.brown : Colors.transparent,
+            width: 2,
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.brown),
+            SizedBox(width: 16),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.black87,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    FetchPixels(context);
-    return WillPopScope(
-        child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          backgroundColor: backGroundColor,
-          bottomNavigationBar: continueButton(context),
-          body: SafeArea(
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: FetchPixels.getPixelWidth(20)),
-              child: Column(
-                children: [
-                  getVerSpace(FetchPixels.getPixelHeight(20)),
-                  gettoolbarMenu(context, "back.svg", () {
-                    Constant.backToPrev(context);
-                  },
-                      title: "Proceed",
-                      weight: FontWeight.w800,
-                      istext: true,
-                      fontsize: 24,
-                      textColor: Colors.black),
-                  getVerSpace(FetchPixels.getPixelHeight(30)),
-                  processTracker(),
-                  getVerSpace(FetchPixels.getPixelHeight(30)),
-                  const OnlineCardScreen()
-                  // tabbar(),
-                  // pageviewer()
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Método de pago"),
+        backgroundColor: Colors.brown,
+        foregroundColor: Colors.white,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildPaymentOption(
+              title: "PayPal",
+              icon: Icons.account_balance_wallet,
+              method: "PayPal",
+            ),
+            _buildPaymentOption(
+              title: "Tarjeta de crédito / débito",
+              icon: Icons.credit_card,
+              method: "Tarjeta",
+            ),
+            _buildPaymentOption(
+              title: "Efectivo en establecimiento",
+              icon: Icons.store,
+              method: "Efectivo",
+            ),
+            Spacer(),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.brown,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: _confirmPayment,
+                child: Text(
+                  "Confirmar pago",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
               ),
             ),
-          ),
+          ],
         ),
-        onWillPop: () async {
-          Constant.backToPrev(context);
-          return false;
-        });
-  }
-
-  Container continueButton(BuildContext context) {
-    return Container(
-      color: backGroundColor,
-      padding: EdgeInsets.only(
-          left: FetchPixels.getPixelWidth(20),
-          right: FetchPixels.getPixelWidth(20),
-          bottom: FetchPixels.getPixelHeight(33)),
-      child: getButton(context, brownColor, "Continue", Colors.white, () {
-        Constant.sendToNext(context, Routes.orderDetailRoute);
-      }, 18,
-          weight: FontWeight.w600,
-          buttonHeight: FetchPixels.getPixelHeight(60),
-          borderRadius: BorderRadius.circular(FetchPixels.getPixelHeight(14))),
-    );
-  }
-
-  // Expanded pageviewer() {
-  //   return Expanded(
-  //     child: PageView(
-  //       physics: BouncingScrollPhysics(),
-  //       controller: _controller,
-  //       scrollDirection: Axis.horizontal,
-  //       children: [Container(), OnlineCardScreen()],
-  //       onPageChanged: (value) {
-  //         tabController.animateTo(value);
-  //       },
-  //     ),
-  //   );
-  // }
-
-  // Stack tabbar() {
-  //   return Stack(
-  //     alignment: Alignment.bottomCenter,
-  //     children: <Widget>[
-  //       Container(
-  //         decoration: BoxDecoration(
-  //           border: Border(
-  //             bottom: BorderSide(color: Color(0xFFE5E8F1), width: 2.0),
-  //           ),
-  //         ),
-  //       ),
-  //       TabBar(
-  //         physics: BouncingScrollPhysics(),
-  //         controller: tabController,
-  //         indicator: UnderlineTabIndicator(
-  //             borderSide: BorderSide(color: brownColor, width: 3)),
-  //         onTap: (index) {
-  //           _controller.animateToPage(
-  //             index,
-  //             duration: const Duration(milliseconds: 400),
-  //             curve: Curves.easeInOut,
-  //           );
-  //           position = index;
-  //           setState(() {});
-  //         },
-  //         tabs: [
-  //           Tab(
-  //             child: Container(
-  //               alignment: Alignment.center,
-  //               width: FetchPixels.getPixelWidth(187),
-  //               child: getCustomFont(
-  //                   "Cash", 16, position == 0 ? brownColor : Colors.black, 1,
-  //                   fontFamily: "Semibold", fontWeight: FontWeight.w600),
-  //             ),
-  //           ),
-  //           Tab(
-  //             child: Container(
-  //               alignment: Alignment.center,
-  //               width: FetchPixels.getPixelWidth(187),
-  //               child: getCustomFont(
-  //                   "Online", 16, position == 1 ? brownColor : Colors.black, 1,
-  //                   fontFamily: "Semibold", fontWeight: FontWeight.w600),
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  Row processTracker() {
-    return Row(
-      children: [
-        Container(
-          height: FetchPixels.getPixelHeight(52),
-          width: FetchPixels.getPixelHeight(52),
-          padding: EdgeInsets.all(FetchPixels.getPixelHeight(14)),
-          decoration: BoxDecoration(
-              color: procced,
-              borderRadius:
-                  BorderRadius.circular(FetchPixels.getPixelHeight(50))),
-          child: getSvgImage("location_select.svg"),
-        ),
-        Expanded(
-          child: DottedLine(
-            dashColor: brownColor,
-            lineThickness: FetchPixels.getPixelHeight(1),
-          ),
-        ),
-        Container(
-          height: FetchPixels.getPixelHeight(52),
-          width: FetchPixels.getPixelHeight(52),
-          padding: EdgeInsets.all(FetchPixels.getPixelHeight(14)),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: const [
-                BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 10,
-                    offset: Offset(0.0, 4.0)),
-              ],
-              borderRadius:
-                  BorderRadius.circular(FetchPixels.getPixelHeight(50))),
-          child: getSvgImage("wallet.svg"),
-        ),
-        Expanded(
-          child: DottedLine(
-            dashColor: const Color(0xFFBEC4D3),
-            lineThickness: FetchPixels.getPixelHeight(1),
-          ),
-        ),
-        Container(
-          height: FetchPixels.getPixelHeight(52),
-          width: FetchPixels.getPixelHeight(52),
-          padding: EdgeInsets.all(FetchPixels.getPixelHeight(14)),
-          decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFE5E8F1), width: 1),
-              borderRadius:
-                  BorderRadius.circular(FetchPixels.getPixelHeight(50))),
-          child: getSvgImage("check.svg"),
-        ),
-      ],
+      ),
     );
   }
 }

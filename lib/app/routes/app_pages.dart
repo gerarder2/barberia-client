@@ -10,6 +10,8 @@ import 'package:fix_store/app/view/home/home_screen.dart';
 import 'package:fix_store/app/view/home/detail_screen.dart';
 import 'package:fix_store/app/view/home/payment_screen.dart';
 import 'package:fix_store/app/view/home/order_detail.dart';
+import 'package:fix_store/app/view/home/views/calendar_screen.dart';
+import 'package:fix_store/app/view/home/views/mycards_screen.dart';
 import 'package:fix_store/app/view/home/views/service_detail_screen.dart';
 import 'package:fix_store/app/view/intro/intro_screen.dart';
 import 'package:fix_store/app/view/login/login_screen.dart';
@@ -40,6 +42,8 @@ class AppPages {
     Routes.introRoute: (context) => const IntroScreen(),
     Routes.registerRoute: (context) => const RegisterScreen(),
     Routes.loginRoute: (context) => const LoginScreen(),
+    Routes.calendarRoute: (context) => CalendarScreen(),
+    Routes.mycardsRoute: (context) => MyCardsScreen(),
     Routes.serviceDetailRoute: (context) => const ServiceDetailScreen(),
     Routes.resetRoute: (context) => const ResetPassword(),
     Routes.signupRoute: (context) => const SignUpScreen(),
@@ -51,7 +55,7 @@ class AppPages {
     Routes.cartRoute: (context) => const CartScreen(),
     Routes.addressRoute: (context) => const AddressScreen(),
     Routes.dateTimeRoute: (context) => const DateTimeScreen(),
-    Routes.paymentRoute: (context) => const PaymentScreen(),
+    Routes.paymentRoute: (context) => PaymentScreen(),
     Routes.orderDetailRoute: (context) => const OrderDetail(),
     Routes.profileRoute: (context) => const ProfileScreen(),
     Routes.editProfileRoute: (context) => const EditProfileScreen(),

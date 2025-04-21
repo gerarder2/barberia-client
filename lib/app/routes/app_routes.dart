@@ -2,7 +2,9 @@ abstract class Routes {
   static const homeRoute = Paths.homepath;
   static const introRoute = Paths.introPath;
   static const loginRoute = Paths.loginPath;
+  static const mycardsRoute = Paths.mycardsPath;
   static const registerRoute = Paths.registerPath;
+  static const calendarRoute = Paths.calendarPath;
   static const serviceDetailRoute = Paths.serviceDetailPath;
   static const resetRoute = Paths.resetPath;
   static const signupRoute = Paths.signUpPath;
@@ -35,7 +37,9 @@ abstract class Paths {
   static const homepath = "/";
   static const introPath = "/IntroScreen";
   static const loginPath = "/LoginScreen";
+  static const mycardsPath = "/MycardsCreen";
   static const registerPath = "/RegisterScreen";
+  static const calendarPath = "/CalendarScreen";
   static const serviceDetailPath = "/ServiceDetailScreen";
   static const resetPath = "/ResetPassword";
   static const signUpPath = "/SignUpScreen";

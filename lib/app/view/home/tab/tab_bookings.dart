@@ -45,7 +45,7 @@ class _TabBookingsState extends State<TabBookings>
           EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
           withoutleftIconToolbar(context,
               isrightimage: true,
-              title: "Bookings",
+              title: "Reservaciones",
               weight: FontWeight.w800,
               textColor: whiteColor,
               fontsize: 24,

@@ -1,8 +1,15 @@
+import 'package:fix_store/app/provider/cart_provider.dart';
 import 'package:fix_store/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main(){
-  runApp(const MyApp());
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CartProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
