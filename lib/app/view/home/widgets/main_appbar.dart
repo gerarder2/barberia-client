@@ -3,6 +3,7 @@ import 'package:fix_store/app/routes/app_routes.dart';
 import 'package:fix_store/base/color_data.dart';
 import 'package:fix_store/base/constant.dart';
 import 'package:fix_store/base/resizer/fetch_pixels.dart';
+import 'package:fix_store/base/widget_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,74 +33,76 @@ class _MainAppbarState extends State<MainAppbar> {
           // Avatar de usuario
           CircleAvatar(
             radius: 25,
-            backgroundImage: AssetImage(
-                "assets/images/mainProfile.jpg"), // Reemplaza con la URL de la imagen del usuario
+            backgroundImage: AssetImage("assets/images/mainProfile.jpg"),
           ),
           SizedBox(width: 10),
-          // Texto de bienvenida y nombre
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Bienvenido',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: textColor,
-                      fontWeight: FontWeight.bold)),
-              Text('Juan Pérez',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-            ],
+          // Nombre con control de overflow
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                getCustomFont("Bienvenido", 16, textColor, 1,
+                    fontWeight: FontWeight.bold),
+                getCustomFont(
+                  "Gerardo Zazueta Corral", // Este nombre se truncará con "..."
+                  16,
+                  whiteColor,
+                  1,
+                  fontWeight: FontWeight.w600,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ],
       ),
       actions: [
-        // Icono de notificación
+        // Icono del carrito con contador
         Padding(
-            padding: EdgeInsets.only(right: FetchPixels.getPixelWidth(10)),
-            child: Stack(
-              children: [
-                CircleAvatar(
-                  radius: 25,
-                  backgroundColor: backGroundColor,
-                  child: IconButton(
-                    icon: Icon(Icons.shopping_cart),
-                    color: whiteColor,
-                    onPressed: () {
-                      Constant.sendToNext(context, Routes.cartRoute);
-                    },
-                  ),
+          padding: EdgeInsets.only(right: FetchPixels.getPixelWidth(10)),
+          child: Stack(
+            children: [
+              CircleAvatar(
+                radius: 25,
+                backgroundColor: backGroundColor,
+                child: IconButton(
+                  icon: Icon(Icons.shopping_cart),
+                  color: whiteColor,
+                  onPressed: () {
+                    Constant.sendToNext(context, Routes.cartRoute);
+                  },
                 ),
-                if (cart.itemCount > 0)
-                  Positioned(
-                    right: 4,
-                    top: 4,
-                    child: GestureDetector(
-                      onTap: () =>
-                          Constant.sendToNext(context, Routes.cartRoute),
-                      child: Container(
-                        padding: EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
+              ),
+              if (cart.itemCount > 0)
+                Positioned(
+                  right: 4,
+                  top: 4,
+                  child: GestureDetector(
+                    onTap: () => Constant.sendToNext(context, Routes.cartRoute),
+                    child: Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: BoxConstraints(minWidth: 20, minHeight: 20),
+                      child: Text(
+                        '${cart.itemCount}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
                         ),
-                        constraints:
-                            BoxConstraints(minWidth: 20, minHeight: 20),
-                        child: Text(
-                          '${cart.itemCount}',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                   ),
-              ],
-            )),
+                ),
+            ],
+          ),
+        ),
+        // Icono de notificaciones
         Padding(
           padding: EdgeInsets.only(right: FetchPixels.getPixelWidth(10)),
           child: CircleAvatar(
@@ -111,22 +114,40 @@ class _MainAppbarState extends State<MainAppbar> {
                 color: whiteColor,
               ),
               onPressed: () {
-                // Muestra las notificaciones al presionar el icono
+                // Mostrar popup de notificaciones
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Notificaciones'),
+                      title: getCustomFont(
+                        'Notificaciones',
+                        18,
+                        whiteColor,
+                        1,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      backgroundColor: Colors.black87,
                       content: SingleChildScrollView(
                         child: ListBody(
                           children: notifications
-                              .map((notification) => Text(notification))
+                              .map((notification) => getCustomFont(
+                                    notification,
+                                    14,
+                                    whiteColor,
+                                    2,
+                                  ))
                               .toList(),
                         ),
                       ),
                       actions: <Widget>[
                         TextButton(
-                          child: Text('Cerrar'),
+                          child: getCustomFont(
+                            'Cerrar',
+                            14,
+                            whiteColor,
+                            1,
+                            fontWeight: FontWeight.w500,
+                          ),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },

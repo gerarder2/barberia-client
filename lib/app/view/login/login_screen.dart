@@ -131,6 +131,31 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              getCustomFont(
+                                "¿Olvidaste tu contraseña?",
+                                14,
+                                Colors.white,
+                                1,
+                                fontWeight: FontWeight.w100,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Constant.sendToNext(
+                                      context, Routes.forgotRoute);
+                                },
+                                child: getCustomFont(
+                                  " Recuperala",
+                                  16,
+                                  Colors.white,
+                                  1,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
                           getVerSpace(FetchPixels.getPixelHeight(40)),
                         ],
                       ),

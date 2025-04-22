@@ -1,3 +1,4 @@
+import 'package:fix_store/app/models/creditCard_model.dart';
 import 'package:fix_store/app/models/model_address.dart';
 import 'package:fix_store/app/models/model_barberos.dart';
 import 'package:fix_store/app/models/model_booking.dart';
@@ -242,4 +243,6 @@ class DataFile {
         "4.6",
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."),
   ];
+
+  static List<CreditCardModel> cards = [];
 }

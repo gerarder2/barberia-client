@@ -1,5 +1,8 @@
 import 'package:fix_store/app/routes/app_routes.dart';
+import 'package:fix_store/base/color_data.dart';
 import 'package:fix_store/base/constant.dart';
+import 'package:fix_store/base/resizer/fetch_pixels.dart';
+import 'package:fix_store/base/widget_utils.dart';
 import 'package:flutter/material.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -46,24 +49,24 @@ class _PaymentScreenState extends State<PaymentScreen> {
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
         margin: EdgeInsets.only(bottom: 16),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.brown[100] : Colors.grey[200],
+          color: isSelected ? brownColor.withOpacity(0.2) : backGroudAux,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? Colors.brown : Colors.transparent,
+            color: isSelected ? brownColor : Colors.transparent,
             width: 2,
           ),
         ),
         child: Row(
           children: [
-            Icon(icon, color: Colors.brown),
+            Icon(icon, color: brownColor),
             SizedBox(width: 16),
             Text(
               title,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.black87,
+                color: textColor,
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -73,10 +76,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backGroundColor,
       appBar: AppBar(
         title: Text("Método de pago"),
-        backgroundColor: Colors.brown,
-        foregroundColor: Colors.white,
+        backgroundColor: backGroundColor,
+        foregroundColor: whiteColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -101,21 +105,22 @@ class _PaymentScreenState extends State<PaymentScreen> {
             Spacer(),
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: FetchPixels.getPixelHeight(55),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.brown,
+                  backgroundColor: brownColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(25),
                   ),
                 ),
                 onPressed: _confirmPayment,
                 child: Text(
                   "Confirmar pago",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(fontSize: 16, color: whiteColor),
                 ),
               ),
             ),
+            getVerSpace(25)
           ],
         ),
       ),

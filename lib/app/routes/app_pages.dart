@@ -14,6 +14,7 @@ import 'package:fix_store/app/view/home/views/calendar_screen.dart';
 import 'package:fix_store/app/view/home/views/mycards_screen.dart';
 import 'package:fix_store/app/view/home/views/service_detail_screen.dart';
 import 'package:fix_store/app/view/intro/intro_screen.dart';
+import 'package:fix_store/app/view/login/forgot_password.dart';
 import 'package:fix_store/app/view/login/login_screen.dart';
 import 'package:fix_store/app/view/login/register_screen.dart';
 import 'package:fix_store/app/view/login/reset_password.dart';
@@ -44,6 +45,7 @@ class AppPages {
     Routes.loginRoute: (context) => const LoginScreen(),
     Routes.calendarRoute: (context) => CalendarScreen(),
     Routes.mycardsRoute: (context) => MyCardsScreen(),
+    Routes.forgotRoute: (context) => const ForgotPassword(),
     Routes.serviceDetailRoute: (context) => const ServiceDetailScreen(),
     Routes.resetRoute: (context) => const ResetPassword(),
     Routes.signupRoute: (context) => const SignUpScreen(),

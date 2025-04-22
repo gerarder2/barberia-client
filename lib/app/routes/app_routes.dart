@@ -5,6 +5,7 @@ abstract class Routes {
   static const mycardsRoute = Paths.mycardsPath;
   static const registerRoute = Paths.registerPath;
   static const calendarRoute = Paths.calendarPath;
+  static const forgotRoute = Paths.forgotPath;
   static const serviceDetailRoute = Paths.serviceDetailPath;
   static const resetRoute = Paths.resetPath;
   static const signupRoute = Paths.signUpPath;
@@ -39,6 +40,7 @@ abstract class Paths {
   static const loginPath = "/LoginScreen";
   static const mycardsPath = "/MycardsCreen";
   static const registerPath = "/RegisterScreen";
+  static const forgotPath = "/ForgotScreen";
   static const calendarPath = "/CalendarScreen";
   static const serviceDetailPath = "/ServiceDetailScreen";
   static const resetPath = "/ResetPassword";
