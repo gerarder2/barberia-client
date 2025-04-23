@@ -65,7 +65,7 @@ class _CompleteBookingScreenState extends State<CompleteBookingScreen> {
                       vertical: FetchPixels.getPixelHeight(16),
                       horizontal: FetchPixels.getPixelWidth(16)),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: backGroudAux,
                       boxShadow: const [
                         BoxShadow(
                             color: Colors.black12,
@@ -85,8 +85,10 @@ class _CompleteBookingScreenState extends State<CompleteBookingScreen> {
                                 height: FetchPixels.getPixelHeight(91),
                                 width: FetchPixels.getPixelHeight(91),
                                 decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
                                   image: getDecorationAssetImage(
-                                      context, modelBooking.image ?? ""),
+                                      context, modelBooking.image ?? "",
+                                      fit: BoxFit.cover),
                                 ),
                               ),
                               getHorSpace(FetchPixels.getPixelWidth(16)),
@@ -94,12 +96,18 @@ class _CompleteBookingScreenState extends State<CompleteBookingScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   getCustomFont(modelBooking.name ?? "", 16,
-                                      Colors.black, 1,
+                                      whiteColor, 1,
                                       fontWeight: FontWeight.w800),
                                   getVerSpace(FetchPixels.getPixelHeight(6)),
-                                  getCustomFont(
-                                      modelBooking.date ?? "", 14, textColor, 1,
-                                      fontWeight: FontWeight.w400),
+                                  SizedBox(
+                                    width: FetchPixels.getPixelWidth(180),
+                                    child: getCustomFont(
+                                        modelBooking.date ?? "",
+                                        12,
+                                        textColor,
+                                        1,
+                                        fontWeight: FontWeight.w400),
+                                  ),
                                   getVerSpace(FetchPixels.getPixelHeight(6)),
                                   Row(
                                     children: [
@@ -110,7 +118,7 @@ class _CompleteBookingScreenState extends State<CompleteBookingScreen> {
                                               FetchPixels.getPixelHeight(16)),
                                       getHorSpace(FetchPixels.getPixelWidth(6)),
                                       getCustomFont(modelBooking.rating ?? "",
-                                          14, Colors.black, 1,
+                                          14, whiteColor, 1,
                                           fontWeight: FontWeight.w400),
                                     ],
                                   )
@@ -158,9 +166,12 @@ class _CompleteBookingScreenState extends State<CompleteBookingScreen> {
                             children: [
                               getButton(
                                   context,
-                                  Color(modelBooking.bgColor!.toInt()),
+                                  backGroudAux,
                                   modelBooking.tag ?? "",
                                   modelBooking.textColor,
+                                  borderColor: modelBooking.textColor,
+                                  borderWidth: 1,
+                                  isBorder: true,
                                   () {},
                                   16,
                                   weight: FontWeight.w600,

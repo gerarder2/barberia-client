@@ -1,9 +1,11 @@
+import 'package:fix_store/app/provider/cart_provider.dart';
 import 'package:fix_store/app/routes/app_routes.dart';
 import 'package:fix_store/base/color_data.dart';
 import 'package:fix_store/base/constant.dart';
 import 'package:fix_store/base/resizer/fetch_pixels.dart';
 import 'package:fix_store/base/widget_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class PaymentScreen extends StatefulWidget {
   @override
@@ -23,7 +25,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
     }
   }
 
-  void _confirmPayment() {
+  void _confirmPayment(CartProvider cart) {
     if (_selectedPaymentMethod.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Por favor selecciona un método de pago")),
@@ -34,6 +36,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Pago confirmado con $_selectedPaymentMethod")),
     );
+    cart.clearCart();
+    Constant.sendToNext(context, Routes.homeScreenRoute);
   }
 
   Widget _buildPaymentOption({
@@ -75,6 +79,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       backgroundColor: backGroundColor,
       appBar: AppBar(
@@ -113,7 +118,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),
-                onPressed: _confirmPayment,
+                onPressed: () {
+                  _confirmPayment(cart);
+                },
                 child: Text(
                   "Confirmar pago",
                   style: TextStyle(fontSize: 16, color: whiteColor),

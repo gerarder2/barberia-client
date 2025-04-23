@@ -65,10 +65,10 @@ class _AllBookingScreenState extends State<AllBookingScreen> {
                 vertical: FetchPixels.getPixelHeight(16),
                 horizontal: FetchPixels.getPixelWidth(16)),
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: backGroudAux,
                 boxShadow: const [
                   BoxShadow(
-                      color: Colors.black12,
+                      color: Colors.black,
                       blurRadius: 10,
                       offset: Offset(0.0, 4.0)),
                 ],
@@ -85,8 +85,10 @@ class _AllBookingScreenState extends State<AllBookingScreen> {
                           height: FetchPixels.getPixelHeight(91),
                           width: FetchPixels.getPixelHeight(91),
                           decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
                             image: getDecorationAssetImage(
-                                context, modelBooking.image ?? ""),
+                                context, modelBooking.image ?? "",
+                                fit: BoxFit.cover),
                           ),
                         ),
                         getHorSpace(FetchPixels.getPixelWidth(16)),
@@ -94,12 +96,15 @@ class _AllBookingScreenState extends State<AllBookingScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             getCustomFont(
-                                modelBooking.name ?? "", 16, Colors.black, 1,
+                                modelBooking.name ?? "", 16, whiteColor, 1,
                                 fontWeight: FontWeight.w800),
                             getVerSpace(FetchPixels.getPixelHeight(6)),
-                            getCustomFont(
-                                modelBooking.date ?? "", 14, textColor, 1,
-                                fontWeight: FontWeight.w400),
+                            SizedBox(
+                              width: FetchPixels.getPixelWidth(180),
+                              child: getCustomFont(
+                                  modelBooking.date ?? "", 12, textColor, 1,
+                                  fontWeight: FontWeight.w400),
+                            ),
                             getVerSpace(FetchPixels.getPixelHeight(6)),
                             Row(
                               children: [
@@ -108,7 +113,7 @@ class _AllBookingScreenState extends State<AllBookingScreen> {
                                     width: FetchPixels.getPixelHeight(16)),
                                 getHorSpace(FetchPixels.getPixelWidth(6)),
                                 getCustomFont(modelBooking.rating ?? "", 14,
-                                    Colors.black, 1,
+                                    whiteColor, 1,
                                     fontWeight: FontWeight.w400),
                               ],
                             )
@@ -152,14 +157,12 @@ class _AllBookingScreenState extends State<AllBookingScreen> {
                     ),
                     Wrap(
                       children: [
-                        getButton(
-                            context,
-                            Color(modelBooking.bgColor!.toInt()),
-                            modelBooking.tag ?? "",
-                            modelBooking.textColor,
-                            () {},
-                            16,
+                        getButton(context, backGroudAux, modelBooking.tag ?? "",
+                            modelBooking.textColor, () {}, 16,
                             weight: FontWeight.w600,
+                            borderColor: modelBooking.textColor,
+                            borderWidth: 1,
+                            isBorder: true,
                             borderRadius: BorderRadius.circular(
                                 FetchPixels.getPixelHeight(37)),
                             insetsGeometrypadding: EdgeInsets.symmetric(

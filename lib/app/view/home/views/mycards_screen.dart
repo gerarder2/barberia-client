@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'package:fix_store/app/routes/app_routes.dart';
 import 'package:fix_store/app/view/home/widgets/expiry_date_input_formatter.dart';
+import 'package:fix_store/base/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -318,17 +320,23 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
           1,
           fontWeight: FontWeight.bold,
         ),
+        actions: [
+          IconButton(onPressed: _showAddCardDialog, icon: Icon(Icons.add))
+        ],
       ),
       body: Column(
         children: [
           Expanded(
             child: cards.isEmpty
                 ? Center(
-                    child: getCustomFont(
-                      "No tienes tarjetas guardadas",
-                      16,
-                      Colors.white60,
-                      1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: getCustomFont(
+                          "No tienes tarjetas guardadas. Presiona el boton + para agregar una",
+                          16,
+                          Colors.white60,
+                          6,
+                          textAlign: TextAlign.center),
                     ),
                   )
                 : ListView.builder(
@@ -339,6 +347,21 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
                     },
                   ),
           ),
+          // Padding(
+          //   padding: EdgeInsets.all(25),
+          //   child: SizedBox(
+          //     height: FetchPixels.getPixelHeight(55),
+          //     child: getButton(
+          //       context,
+          //       brownColor,
+          //       "Agregar Tarjeta",
+          //       whiteColor,
+          //       _showAddCardDialog,
+          //       16,
+          //       borderRadius: BorderRadius.circular(25),
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: EdgeInsets.all(25),
             child: SizedBox(
@@ -346,14 +369,17 @@ class _MyCardsScreenState extends State<MyCardsScreen> {
               child: getButton(
                 context,
                 brownColor,
-                "Agregar Tarjeta",
+                "Pagar",
                 whiteColor,
-                _showAddCardDialog,
+                () {
+                  Constant.sendToNext(context, Routes.homeScreenRoute);
+                },
                 16,
                 borderRadius: BorderRadius.circular(25),
               ),
             ),
           ),
+          getVerSpace(20)
         ],
       ),
     );

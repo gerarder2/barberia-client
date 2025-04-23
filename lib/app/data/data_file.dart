@@ -123,14 +123,14 @@ class DataFile {
   ];
 
   static List<ModelBooking> bookingList = [
-    ModelBooking("booking1.png", "Cleaning", "23 April, 2022, 11:00 am", "4.3",
-        20.00, "By Mendy Wilson", "Active", 0xFFEEFCF0, success),
-    ModelBooking("booking2.png", "Painting", "22 April, 2022, 08:00 am", "4.2",
-        50.00, "By Jenny Winget", "Completed", 0xFFF0F8FF, completed),
-    ModelBooking("booking3.png", "Cleaning", "20 April, 2022, 06:00 pm", "4.3",
-        18.00, "By Jacob Jones", "Cancelled", 0xFFFFF3F3, error),
-    ModelBooking("booking4.png", "Repairing", "20 April, 2022, 06:00 pm", "4.3",
-        18.00, "By Jacob Jones", "Completed", 0xFFF0F8FF, completed),
+    ModelBooking("barberPerfil2.jpg", "Cleaning", "23 April, 2022, 11:00 am",
+        "4.3", 20.00, "By Mendy Wilson", "Active", 0xFFEEFCF0, success),
+    ModelBooking("barberPerfil.jpg", "Painting", "22 April, 2022, 08:00 am",
+        "4.2", 50.00, "By Jenny Winget", "Completed", 0xFFF0F8FF, completed),
+    ModelBooking("barberPerfil2.jpg", "Cleaning", "20 April, 2022, 06:00 pm",
+        "4.3", 18.00, "By Jacob Jones", "Cancelled", 0xFFFFF3F3, error),
+    ModelBooking("barberPerfil.jpg", "Repairing", "20 April, 2022, 06:00 pm",
+        "4.3", 18.00, "By Jacob Jones", "Completed", 0xFFF0F8FF, completed),
   ];
 
   static List<ModelAddress> addressList = [
