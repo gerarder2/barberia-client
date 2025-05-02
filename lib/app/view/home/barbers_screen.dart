@@ -1,5 +1,9 @@
 import 'package:fix_store/app/data/data_file.dart';
+import 'package:fix_store/app/models/model_barberos.dart';
 import 'package:fix_store/app/models/model_category.dart';
+import 'package:fix_store/app/routes/app_routes.dart';
+import 'package:fix_store/app/view/home/detail_screen.dart';
+import 'package:fix_store/base/color_data.dart';
 import 'package:fix_store/base/constant.dart';
 import 'package:fix_store/base/device_util.dart';
 import 'package:fix_store/base/resizer/fetch_pixels.dart';
@@ -8,18 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../base/color_data.dart';
-import '../../routes/app_routes.dart';
-
-class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({Key? key}) : super(key: key);
+class BarbersScreen extends StatefulWidget {
+  const BarbersScreen({super.key});
 
   @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
+  State<BarbersScreen> createState() => _BarbersScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
-  static List<ModelCategory> categoryLists = DataFile.categoryList;
+class _BarbersScreenState extends State<BarbersScreen> {
+  static List<BarberosModel> categoryLists = DataFile.barberList;
   SharedPreferences? selection;
   @override
   void initState() {
@@ -54,7 +55,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     Constant.backToPrev(context);
                   },
                       istext: true,
-                      title: "Servicios",
+                      title: "Barberos",
                       fontsize: 24,
                       weight: FontWeight.w800,
                       textColor: whiteColor),
@@ -82,7 +83,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         primary: true,
         itemCount: categoryLists.length,
         itemBuilder: (context, index) {
-          ModelCategory modelCategory = categoryLists[index];
+          BarberosModel modelCategory = categoryLists[index];
           return GestureDetector(
             onTap: () {
               // showModalBottomSheet(
@@ -99,8 +100,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
               //       return CategoryDialog();
               //     });
               // Constant.sendToNext(context, Routes.detailRoute);
-              selection!.setInt("indexService", index);
-              Constant.sendToNext(context, Routes.serviceDetailRoute);
+              selection?.setInt("index", index);
+              Constant.sendToNext(context, Routes.detailRoute,
+                  arguments: ScreenArguments(index, modelCategory));
             },
             child: AnimationConfiguration.staggeredGrid(
               position: index,
@@ -108,49 +110,52 @@ class _CategoryScreenState extends State<CategoryScreen> {
               columnCount: noOfGrid,
               child: ScaleAnimation(
                 child: FadeInAnimation(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                        top: FetchPixels.getPixelHeight(24),
-                        bottom: FetchPixels.getPixelHeight(16)),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("${Constant.assetImagePath}"
-                              "${modelCategory.image}"),
-                          fit: BoxFit.cover,
-                          colorFilter: ColorFilter.mode(
-                            Colors.black
-                                .withOpacity(0.35), // Ajusta la opacidad aquí
-                            BlendMode.darken, // Modo para oscurecer
+                  child: Hero(
+                    tag: index,
+                    child: Container(
+                      padding: EdgeInsets.only(
+                          top: FetchPixels.getPixelHeight(24),
+                          bottom: FetchPixels.getPixelHeight(16)),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("${Constant.assetImagePath}"
+                                "${modelCategory.image}"),
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                              Colors.black
+                                  .withOpacity(0.35), // Ajusta la opacidad aquí
+                              BlendMode.darken, // Modo para oscurecer
+                            ),
                           ),
-                        ),
-                        color: Colors.white,
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 10,
-                              offset: Offset(0.0, 4.0)),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 10,
+                                offset: Offset(0.0, 4.0)),
+                          ],
+                          borderRadius: BorderRadius.circular(
+                              FetchPixels.getPixelHeight(12))),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          // getAssetImage(
+                          //     modelCategory.image ?? "",
+                          //     FetchPixels.getPixelHeight(44),
+                          //     FetchPixels.getPixelHeight(44),
+                          //     boxFit: BoxFit.cover),
+                          // getSvgImage(modelCategory.image ?? "",
+                          //     width: FetchPixels.getPixelHeight(44),
+                          //     height: FetchPixels.getPixelHeight(44)),
+                          getVerSpace(FetchPixels.getPixelHeight(15)),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: getCustomFont(
+                                modelCategory.nombre ?? '', 14, Colors.white, 1,
+                                fontWeight: FontWeight.w400),
+                          )
                         ],
-                        borderRadius: BorderRadius.circular(
-                            FetchPixels.getPixelHeight(12))),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // getAssetImage(
-                        //     modelCategory.image ?? "",
-                        //     FetchPixels.getPixelHeight(44),
-                        //     FetchPixels.getPixelHeight(44),
-                        //     boxFit: BoxFit.cover),
-                        // getSvgImage(modelCategory.image ?? "",
-                        //     width: FetchPixels.getPixelHeight(44),
-                        //     height: FetchPixels.getPixelHeight(44)),
-                        getVerSpace(FetchPixels.getPixelHeight(15)),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: getCustomFont(
-                              modelCategory.name ?? '', 14, Colors.white, 1,
-                              fontWeight: FontWeight.w400),
-                        )
-                      ],
+                      ),
                     ),
                   ),
                 ),

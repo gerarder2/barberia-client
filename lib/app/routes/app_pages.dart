@@ -3,6 +3,7 @@ import 'package:fix_store/app/view/address/my_address_screen.dart';
 import 'package:fix_store/app/view/bookings/booking_detail.dart';
 import 'package:fix_store/app/view/card/card_screen.dart';
 import 'package:fix_store/app/view/home/address_screen.dart';
+import 'package:fix_store/app/view/home/barbers_screen.dart';
 import 'package:fix_store/app/view/home/cart_screen.dart';
 import 'package:fix_store/app/view/home/category_screen.dart';
 import 'package:fix_store/app/view/home/date_time_screen.dart';
@@ -45,6 +46,7 @@ class AppPages {
     Routes.loginRoute: (context) => const LoginScreen(),
     Routes.calendarRoute: (context) => CalendarScreen(),
     Routes.mycardsRoute: (context) => MyCardsScreen(),
+    Routes.barbersRoute: (context) => BarbersScreen(),
     Routes.forgotRoute: (context) => const ForgotPassword(),
     Routes.serviceDetailRoute: (context) => const ServiceDetailScreen(),
     Routes.resetRoute: (context) => const ResetPassword(),

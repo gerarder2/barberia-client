@@ -65,11 +65,22 @@ class _TabHomeState extends State<TabHome> {
           MainAppbar(),
           getVerSpace(FetchPixels.getPixelHeight(10)),
           getPaddingWidget(
-              EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
-              getSearchWidget(context, searchController,
-                  focusController: focusNode, () {
-                Constant.sendToNext(context, Routes.searchRoute);
-              }, (value) {})),
+            EdgeInsets.symmetric(horizontal: FetchPixels.getPixelWidth(20)),
+            SizedBox(
+              height: FetchPixels.getPixelHeight(50),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: getButton(
+                  context,
+                  brownColor,
+                  "¡Agenda tu cita!",
+                  whiteColor,
+                  () {}, // Tu función aquí
+                  16,
+                ),
+              ),
+            ),
+          ),
           getVerSpace(FetchPixels.getPixelHeight(20)),
           Expanded(
             flex: 1,
@@ -182,8 +193,13 @@ class _TabHomeState extends State<TabHome> {
                     children: [
                       getCustomFont("Barberos", 20, Colors.white70, 1,
                           fontWeight: FontWeight.w800),
-                      getCustomFont("Ver todos", 14, brownColor, 1,
-                          fontWeight: FontWeight.w600)
+                      GestureDetector(
+                        onTap: () {
+                          Constant.sendToNext(context, Routes.barbersRoute);
+                        },
+                        child: getCustomFont("Ver todos", 14, brownColor, 1,
+                            fontWeight: FontWeight.w600),
+                      )
                     ],
                   ),
                 ),

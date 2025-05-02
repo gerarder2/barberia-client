@@ -16,9 +16,35 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
+  DateTime? _selectedTimeSlot;
+
+  // Generar horarios desde 9:00 AM a 8:00 PM con intervalos de 45 minutos
+  List<DateTime> generarHorariosDelDia(DateTime dia) {
+    final horaInicio = DateTime(dia.year, dia.month, dia.day, 9, 0);
+    final horaFin = DateTime(dia.year, dia.month, dia.day, 20, 0);
+    final intervaloMinutos = 45;
+
+    List<DateTime> horarios = [];
+    DateTime actual = horaInicio;
+    while (actual.isBefore(horaFin)) {
+      horarios.add(actual);
+      actual = actual.add(Duration(minutes: intervaloMinutos));
+    }
+    return horarios;
+  }
+
+  // Formatear hora a "hh:mm AM/PM"
+  String formatearHora(DateTime hora) {
+    final horas = hora.hour > 12 ? hora.hour - 12 : hora.hour;
+    final minutos = hora.minute.toString().padLeft(2, '0');
+    final sufijo = hora.hour >= 12 ? 'PM' : 'AM';
+    return "$horas:$minutos $sufijo";
+  }
 
   @override
   Widget build(BuildContext context) {
+    final horarios = generarHorariosDelDia(_selectedDay);
+
     return Scaffold(
       appBar: AppBar(
         foregroundColor: whiteColor,
@@ -27,7 +53,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ),
       backgroundColor: backGroundColor,
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -40,6 +66,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 setState(() {
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
+                  _selectedTimeSlot = null; // Limpiar selección anterior
                 });
               },
               enabledDayPredicate: (day) {
@@ -49,20 +76,22 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 return !checkDay.isBefore(today);
               },
               headerStyle: HeaderStyle(
-                titleTextStyle: TextStyle(
-                  color: whiteColor,
+                titleTextStyle: const TextStyle(
+                  color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
                 formatButtonVisible: false,
-                leftChevronIcon: Icon(Icons.chevron_left, color: whiteColor),
-                rightChevronIcon: Icon(Icons.chevron_right, color: whiteColor),
+                leftChevronIcon:
+                    const Icon(Icons.chevron_left, color: Colors.white),
+                rightChevronIcon:
+                    const Icon(Icons.chevron_right, color: Colors.white),
                 titleCentered: true,
               ),
               calendarStyle: CalendarStyle(
-                weekendTextStyle: TextStyle(color: whiteColor),
-                defaultTextStyle: TextStyle(color: whiteColor),
-                disabledTextStyle: TextStyle(color: Colors.grey),
+                weekendTextStyle: const TextStyle(color: Colors.white),
+                defaultTextStyle: const TextStyle(color: Colors.white),
+                disabledTextStyle: const TextStyle(color: Colors.grey),
                 todayDecoration: BoxDecoration(
                   color: brownColor,
                   shape: BoxShape.circle,
@@ -73,16 +102,42 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 ),
               ),
             ),
-
-            // Si quieres agregar más contenido aquí como citasHoy, lo puedes hacer
+            const SizedBox(height: 24),
+            getCustomFont("Selecciona un horario", 16, whiteColor, 1),
+            const SizedBox(height: 12),
+            Center(
+              child: Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                alignment: WrapAlignment.spaceBetween,
+                children: horarios.map((hora) {
+                  bool estaSeleccionado = _selectedTimeSlot == hora;
+                  return ChoiceChip(
+                    label: Text(
+                      formatearHora(hora),
+                      style: TextStyle(
+                        color: estaSeleccionado ? Colors.white : Colors.white,
+                      ),
+                    ),
+                    selected: estaSeleccionado,
+                    onSelected: (_) {
+                      setState(() {
+                        _selectedTimeSlot = hora;
+                      });
+                    },
+                    selectedColor: brownColor,
+                    backgroundColor: backGroudAux,
+                    labelPadding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  );
+                }).toList(),
+              ),
+            ),
           ],
         ),
       ),
-
-      // Este es el botón centrado al final
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.fromLTRB(
-            16, 0, 16, 45), // espacio lateral e inferior
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 45),
         child: SizedBox(
           height: FetchPixels.getPixelHeight(55),
           width: double.infinity,
@@ -99,7 +154,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 "Continuar",
                 whiteColor,
                 () {
-                  Constant.sendToNext(context, Routes.paymentRoute);
+                  if (_selectedTimeSlot != null) {
+                    // Aquí podrías pasar la hora seleccionada a la siguiente pantalla
+                    Constant.sendToNext(context, Routes.paymentRoute);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content:
+                              Text("Selecciona un horario antes de continuar")),
+                    );
+                  }
                 },
                 16,
               ),

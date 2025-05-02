@@ -92,16 +92,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildPaymentOption(
-              title: "PayPal",
-              icon: Icons.account_balance_wallet,
-              method: "PayPal",
-            ),
-            _buildPaymentOption(
-              title: "Tarjeta de crédito / débito",
-              icon: Icons.credit_card,
-              method: "Tarjeta",
-            ),
+            // _buildPaymentOption(
+            //   title: "PayPal",
+            //   icon: Icons.account_balance_wallet,
+            //   method: "PayPal",
+            // ),
+            // _buildPaymentOption(
+            //   title: "Tarjeta de crédito / débito",
+            //   icon: Icons.credit_card,
+            //   method: "Tarjeta",
+            // ),
             _buildPaymentOption(
               title: "Efectivo en establecimiento",
               icon: Icons.store,
@@ -122,7 +122,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   _confirmPayment(cart);
                 },
                 child: Text(
-                  "Confirmar pago",
+                  "Confirmar",
                   style: TextStyle(fontSize: 16, color: whiteColor),
                 ),
               ),

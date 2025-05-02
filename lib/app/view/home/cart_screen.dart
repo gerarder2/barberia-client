@@ -25,7 +25,7 @@ class CartScreen extends StatelessWidget {
       body: cartItems.isEmpty
           ? Center(
               child:
-                  getCustomFont('Tu carrito está vacío 😢', 16, textColor, 1),
+                  getCustomFont('No haz agregado servicios', 16, textColor, 1),
             )
           : Column(
               children: [
@@ -58,6 +58,8 @@ class CartScreen extends StatelessWidget {
                           trailing: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              getCustomFont(
+                                  '${producto.quantity}', 12, whiteColor, 1),
                               IconButton(
                                 icon: Icon(
                                   Icons.remove_circle_outline,
@@ -67,17 +69,15 @@ class CartScreen extends StatelessWidget {
                                   cart.decreaseItem(barbero, producto);
                                 },
                               ),
-                              getCustomFont(
-                                  '${producto.quantity}', 12, whiteColor, 1),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.add_circle_outline,
-                                  color: whiteColor,
-                                ),
-                                onPressed: () {
-                                  cart.addItem(barbero, producto);
-                                },
-                              ),
+                              // IconButton(
+                              //   icon: Icon(
+                              //     Icons.add_circle_outline,
+                              //     color: whiteColor,
+                              //   ),
+                              //   onPressed: () {
+                              //     // cart.addItem(barbero, producto);
+                              //   },
+                              // ),
                             ],
                           ),
                         ),

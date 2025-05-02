@@ -63,7 +63,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   gettoolbarMenu(context, "back.svg", () {
                     Constant.backToPrev(context);
                   },
-                      title: "Detail",
+                      title: "Detalles",
                       weight: FontWeight.w800,
                       textColor: Colors.white60,
                       fontsize: 24,
@@ -126,7 +126,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         getPaddingWidget(
                           EdgeInsets.symmetric(
                               horizontal: FetchPixels.getPixelWidth(20)),
-                          getCustomFont("Packages", 16, textColor, 1,
+                          getCustomFont("Servicios", 16, textColor, 1,
                               fontWeight: FontWeight.w800),
                         ),
                         getVerSpace(FetchPixels.getPixelHeight(15)),
@@ -247,15 +247,15 @@ class _DetailScreenState extends State<DetailScreen> {
         else
           Row(
             children: [
-              GestureDetector(
-                child: getSvgImage("add1.svg",
-                    width: FetchPixels.getPixelHeight(30),
-                    height: FetchPixels.getPixelHeight(30)),
-                onTap: () {
-                  cart.addItem(
-                      barberoModel, barberoModel.servicios!.elementAt(index));
-                },
-              ),
+              // GestureDetector(
+              //   child: getSvgImage("add1.svg",
+              //       width: FetchPixels.getPixelHeight(30),
+              //       height: FetchPixels.getPixelHeight(30)),
+              //   onTap: () {
+              //     // cart.addItem(
+              //     //     barberoModel, barberoModel.servicios!.elementAt(index));
+              //   },
+              // ),
               getHorSpace(FetchPixels.getPixelWidth(10)),
               getCustomFont(
                   barberoModel.servicios!.elementAt(index).quantity.toString(),
@@ -263,16 +263,26 @@ class _DetailScreenState extends State<DetailScreen> {
                   whiteColor,
                   1,
                   fontWeight: FontWeight.w400),
-              getHorSpace(FetchPixels.getPixelWidth(10)),
-              GestureDetector(
-                child: getSvgImage("minus.svg",
-                    width: FetchPixels.getPixelHeight(30),
-                    height: FetchPixels.getPixelHeight(30)),
-                onTap: () {
+              // getHorSpace(FetchPixels.getPixelWidth(10)),
+              IconButton(
+                icon: Icon(
+                  Icons.remove_circle_outline,
+                  color: whiteColor,
+                ),
+                onPressed: () {
                   cart.decreaseItem(
                       barberoModel, barberoModel.servicios!.elementAt(index));
                 },
               ),
+              // GestureDetector(
+              //   child: getSvgImage("minus.svg",
+              //       width: FetchPixels.getPixelHeight(30),
+              //       height: FetchPixels.getPixelHeight(30)),
+              //   onTap: () {
+              //     cart.decreaseItem(
+              //         barberoModel, barberoModel.servicios!.elementAt(index));
+              //   },
+              // ),
             ],
           ),
         getVerSpace(FetchPixels.getPixelHeight(40)),
